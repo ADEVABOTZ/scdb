@@ -32,14 +32,15 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('trust proxy', 1);
 
 app.use(session({
-  name: 'vercel-session',
+  name: 'sid',
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
+  proxy: true,
   cookie: {
-    secure: true,
     httpOnly: true,
-    sameSite: 'none'
+    secure: true,
+    sameSite: 'lax'
   }
 }));
 
