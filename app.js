@@ -165,9 +165,12 @@ app.post('/login-admin', (req, res) => {
 });
 
 app.get('/logout', (req, res) => {
-  req.session.destroy();
-  res.redirect('/login-admin');
+  req.session.destroy(() => {
+    res.clearCookie('sid');
+    res.redirect('/login-admin');
+  });
 });
+
 
 // Halaman Admin
 app.get('/admin', authMiddleware, async (req, res) => {
@@ -197,9 +200,13 @@ app.post('/login', (req, res) => {
 });
 
 app.get('/logout-user', (req, res) => {
-  req.session.destroy();
-  res.redirect('/login');
+  req.session.destroy(() => {
+    res.clearCookie('sid');
+    res.redirect('/login');
+  });
 });
+
+
 
 app.post('/delete', async (req, res) => {
   const { number } = req.body;
